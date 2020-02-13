@@ -1,0 +1,7 @@
+{
+  "name": "FlipCoinIonic",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

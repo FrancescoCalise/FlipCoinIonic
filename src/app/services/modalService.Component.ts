@@ -16,9 +16,11 @@ export class ModalServiceComponent {
   const modal = await this.modalController.create({
     component: this.stringEmpty,
     componentProps: {
-      'firstName': 'Douglas',
-      'lastName': 'Adams',
-      'middleInitial': 'N'
+      /*   
+        'firstName': 'Douglas',
+        'lastName': 'Adams',
+        'middleInitial': 'N' 
+      */
     }
     
   });
@@ -28,7 +30,9 @@ export class ModalServiceComponent {
 
   private setComponent(nameComponent:string){
     switch(nameComponent){
-      case "BluetoothModal": return BluetoothModal; break;
+      //add allModal in this method 
+      case "BluetoothModal": return BluetoothModal;
+
       default: return NotImplemented;
     }  
   }

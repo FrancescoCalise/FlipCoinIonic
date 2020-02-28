@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BluetoothModal } from '../settings/bluetooth/bluetooth.page';
-import { stringify } from 'querystring';
+import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
 
 @Component({
     template: ''
@@ -29,7 +29,7 @@ export class ModalServiceComponent {
   private setComponent(nameComponent:string){
     switch(nameComponent){
       case "BluetoothModal": return BluetoothModal; break;
-      default: return this.stringEmpty;
+      default: return NotImplemented;
     }  
   }
 

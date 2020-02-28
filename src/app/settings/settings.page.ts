@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonServiceComponent } from '../services/commonService.Component';
 import { ISetting } from 'src/interface/ISetting';
 import { ModalServiceComponent } from '../services/modalService.Component';
+import { IFunction } from 'src/interface/IFunction';
 
 @Component({
   selector: 'app-settings',
@@ -10,11 +11,12 @@ import { ModalServiceComponent } from '../services/modalService.Component';
 })
 export class SettingsPage implements OnInit {
   nameFile:string ='settings';
-  public settings:ISetting[];
+  public settings: IFunction[];
 
   constructor(
     public modalService: ModalServiceComponent,
-    public commonSerivce: CommonServiceComponent) {}
+    public commonSerivce: CommonServiceComponent
+  ){}
 
   ngOnInit(){
     this.commonSerivce.readJson(this.nameFile).then(settings => {
@@ -22,9 +24,4 @@ export class SettingsPage implements OnInit {
     });
   }
 
-  public openModel(nameComponent : string){
-    this.modalService.openModel(nameComponent)
-  }
-
-  
 }

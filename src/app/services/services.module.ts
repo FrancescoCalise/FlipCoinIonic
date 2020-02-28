@@ -6,12 +6,14 @@ import { BluetoothModal } from '../settings/bluetooth/bluetooth.page';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
 
 @NgModule({
     declarations: [
         BluetoothServiceComponent,
         CommonServiceComponent,
         BluetoothModal,
+        NotImplemented,
         ModalServiceComponent
     ],
     imports: [
@@ -31,7 +33,8 @@ import { FormsModule } from '@angular/forms';
 
     ],
     entryComponents:[
-        BluetoothModal
+        BluetoothModal,
+        NotImplemented
     ]
 })
   

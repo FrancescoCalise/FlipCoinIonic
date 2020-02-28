@@ -1,6 +1,5 @@
 export interface IFunction {
     Name: string;
-    Path: string;
-    Content:string;
-    BackgroundColor: string;
+    Component: string;
+    Content: string;
 }

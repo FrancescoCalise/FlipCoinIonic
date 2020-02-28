@@ -1,6 +1,5 @@
 export interface ISetting {
     Name: string;
-    Path: string;
-    Content:string;
-    BackgroundColor: string;
+    Component: string;
+    Content: string;
 }

@@ -15,7 +15,6 @@ export class BluetoothModal implements OnInit {
   @Input() lastName: string;
   @Input() middleInitial: string;
 
-
   constructor(
     public modalService: ModalServiceComponent,
     private navParams: NavParams,

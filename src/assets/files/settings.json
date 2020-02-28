@@ -1,0 +1,4 @@
+[
+    {"Name":"Bluetooth", "Path":"BluetoothModal","Content":"descrizione per action bluetooth","BackgroundColor":"red"},
+    {"Name":"AltraFunzione", "Path":"path","Content":"descrizione che non farà niente","BackgroundColor":"red"}
+]

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { NavParams, ModalController } from '@ionic/angular';
+import { NavParams} from '@ionic/angular';
+import { BluetoothServiceComponent } from 'src/app/services/bluetoothService.Component';
+import { ModalServiceComponent } from 'src/app/services/modalService.Component';
 
 @Component({
   selector: 'app-bluetooth',
@@ -14,25 +15,21 @@ export class BluetoothModal implements OnInit {
   @Input() lastName: string;
   @Input() middleInitial: string;
 
+
   constructor(
-    private bluetoothSerial: BluetoothSerial,
+    public modalService: ModalServiceComponent,
     private navParams: NavParams,
-    public modalController: ModalController
-    ) {
+    public bluetoothSerivce: BluetoothServiceComponent,
+  ) {   
     console.log(navParams.get('firstName'));
   }
 
   ngOnInit(){
-    //this.bluetoothSerial.isEnabled().then(enabled => console.log('bluetooth is:' + enabled))
+    this.bluetoothSerivce.isEnabled();
   }
 
-  dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalController.dismiss({
-      'dismissed': true
-    });
-  }
+ 
 
+  
   
 }

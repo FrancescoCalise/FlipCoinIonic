@@ -12,25 +12,11 @@
       <ion-title size="large">Settings</ion-title>
     </ion-toolbar>
   </ion-header>
-  
-    <ion-card>
-      <ion-card-header (click)="presentModal()">
-        <ion-card-title>Bluetooth setting</ion-card-title>
-        <ion-card-subtitle>Set Bluetooth</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Altra funzione </ion-card-title>
-        <ion-card-subtitle>che fara qualcosa</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-    
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Altra funzione </ion-card-title>
-        <ion-card-subtitle>che fara qualcosa</ion-card-subtitle>
+    <ion-card *ngFor="let setting of settings">
+      <ion-card-header (click)="openModel(setting.Path)">
+        <ion-card-title>{{setting.Name}}</ion-card-title>
+        <ion-card-subtitle>{{setting.Content}}</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
 

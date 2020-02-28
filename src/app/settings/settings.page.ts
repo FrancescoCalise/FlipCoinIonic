@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { BluetoothModal } from './bluetooth/bluetooth.page';
+import { CommonServiceComponent } from '../services/commonService.Component';
+import { ISetting } from 'src/interface/ISetting';
+import { ModalServiceComponent } from '../services/modalService.Component';
 
 @Component({
   selector: 'app-settings',
@@ -8,31 +9,22 @@ import { BluetoothModal } from './bluetooth/bluetooth.page';
   styleUrls: ['settings.page.scss']
 })
 export class SettingsPage implements OnInit {
+  nameFile:string ='settings';
+  public settings:ISetting[];
 
-  constructor(public modalController: ModalController) {}
+  constructor(
+    public modalService: ModalServiceComponent,
+    public commonSerivce: CommonServiceComponent) {}
 
   ngOnInit(){
-  }
-
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: BluetoothModal,
-      componentProps: {
-        'firstName': 'Douglas',
-        'lastName': 'Adams',
-        'middleInitial': 'N'
-      }
-    });
-    return await modal.present();
-  }
-
-  dismiss() {
-    this.modalController.dismiss({
-      'dismissed': true
+    this.commonSerivce.readJson(this.nameFile).then(settings => {
+      this.settings = settings
     });
   }
-  public test(){
-    console.log('test')
+
+  public openModel(nameComponent : string){
+    this.modalService.openModel(nameComponent)
   }
 
+  
 }

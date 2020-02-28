@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SettingsPage } from './settings.page';
-import { BluetoothModal } from './bluetooth/bluetooth.page';
 
 @NgModule({
   imports: [
@@ -18,11 +17,7 @@ import { BluetoothModal } from './bluetooth/bluetooth.page';
     ])
   ],
   declarations: [
-    SettingsPage,
-    BluetoothModal
-  ],
-  entryComponents:[
-    BluetoothModal
-  ]
+    SettingsPage
+  ]  
 })
 export class SettingsPageModule {}

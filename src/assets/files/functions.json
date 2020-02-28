@@ -1,0 +1,4 @@
+[
+    {"Name":"Flip", "Path":"/flip","Content":"descrizione per action flip","BackgroundColor":"red"},
+    {"Name":"Random", "Path":"/random","Content":"descrizione per action random","BackgroundColor":"green"}
+]

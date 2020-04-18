@@ -8,13 +8,14 @@
 </ion-header>
 
 <ion-content fullscreen>
+
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let device of devices" (click)="Connetti()">
       <ion-label>
-        <h2>Gollum</h2>
-        <p>Sneaky little hobbitses!</p>
+        <h2>{{device.name}}</h2>
+        <p>{{device.address}}</p>
       </ion-label>
     </ion-item>
-
   </ion-list>
+
 </ion-content>

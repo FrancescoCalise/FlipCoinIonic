@@ -21,7 +21,7 @@ import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
         CommonModule,
         FormsModule,
     ],
-    providers:[
+    providers: [
         BluetoothServiceComponent,
         CommonServiceComponent,
         ModalServiceComponent
@@ -32,10 +32,10 @@ import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
         ModalServiceComponent
 
     ],
-    entryComponents:[
+    entryComponents: [
         BluetoothModal,
         NotImplemented
     ]
 })
-  
+
 export class ServicesModule {}

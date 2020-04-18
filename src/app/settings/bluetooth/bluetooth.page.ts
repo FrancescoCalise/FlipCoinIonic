@@ -1,8 +1,8 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NavParams} from '@ionic/angular';
 import { BluetoothServiceComponent } from 'src/app/services/bluetoothService.Component';
 import { ModalServiceComponent } from 'src/app/services/modalService.Component';
-import { Device } from 'src/interface/Device';
+import { IDevice } from 'src/interface/IDevice';
 
 @Component({
   selector: 'app-bluetooth',
@@ -10,7 +10,8 @@ import { Device } from 'src/interface/Device';
   styleUrls: ['bluetooth.page.scss']
 })
 export class BluetoothModal implements OnInit {
-  public devices: Device[] = [];
+  public devices: IDevice[] = [];
+
   // Data passed in by componentProps
   /* @Input() firstName: string;
   @Input() lastName: string;
@@ -20,25 +21,18 @@ export class BluetoothModal implements OnInit {
     public modalService: ModalServiceComponent,
     private navParams: NavParams,
     public bluetoothService: BluetoothServiceComponent,
-  ) {   
-   
+  ) {
   }
 
-   ngOnInit(){
+  ngOnInit() {
     this.bluetoothService.isEnabled()
-    .then(state =>{
-    
-      if(state){
+    .then(state => {
+      if (state) {
         this.devices = this.bluetoothService.searchDevices();
       }
-    })
-   
+    });
   }
 
- ngOnAfterInit(){
-
- }
-
-  
-  
+  ngOnAfterInit() {
+  }
 }

@@ -18,8 +18,8 @@ import { ServicesModule } from './services/services.module';
   entryComponents: [
   ],
   imports: [
-    BrowserModule, 
-    IonicModule.forRoot(), 
+    BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     ServicesModule
   ],

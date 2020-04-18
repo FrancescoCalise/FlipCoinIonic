@@ -12,6 +12,6 @@ export class NotImplemented {
   constructor(
     public modalService: ModalServiceComponent,
     public bluetoothSerivce: BluetoothServiceComponent,
-  ) {   
-  }  
+  ) {
+  }
 }

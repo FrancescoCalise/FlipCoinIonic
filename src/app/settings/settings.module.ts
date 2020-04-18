@@ -11,13 +11,13 @@ import { SettingsPage } from './settings.page';
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { 
-        path: '', component: SettingsPage 
+      {
+        path: '', component: SettingsPage
       }
     ])
   ],
   declarations: [
     SettingsPage
-  ]  
+  ]
 })
 export class SettingsPageModule {}

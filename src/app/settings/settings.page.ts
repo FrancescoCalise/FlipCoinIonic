@@ -10,17 +10,17 @@ import { IFunction } from 'src/interface/IFunction';
   styleUrls: ['settings.page.scss']
 })
 export class SettingsPage implements OnInit {
-  nameFile:string ='settings';
+  nameFile = 'settings';
   public settings: IFunction[];
 
   constructor(
     public modalService: ModalServiceComponent,
     public commonSerivce: CommonServiceComponent
-  ){}
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.commonSerivce.readJson(this.nameFile).then(settings => {
-      this.settings = settings
+      this.settings = settings;
     });
   }
 

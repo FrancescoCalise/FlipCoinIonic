@@ -9,18 +9,18 @@ import { IFunction } from 'src/interface/IFunction';
   styleUrls: ['dashboard.page.scss']
 })
 export class DashboardPage implements OnInit {
-  nameFile:string ='functions';
-  public functions:IFunction[];
+  nameFile = 'functions';
+  public functions: IFunction[];
 
   constructor(
     public modalService: ModalServiceComponent,
     public commonSerivce: CommonServiceComponent
   ) {
-    
+
   }
-  ngOnInit(){
+  ngOnInit() {
     this.commonSerivce.readJson(this.nameFile).then(funs => {
-      this.functions = funs
+      this.functions = funs;
     });
   }
 

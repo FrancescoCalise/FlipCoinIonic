@@ -7,41 +7,42 @@ import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
     template: ''
 })
 export class ModalServiceComponent {
-  stringEmpty:string = "";
+  stringEmpty = '';
 
   constructor(public modalController: ModalController) { }
 
 
-  public async openModel(nameComponent:string){
+  public async openModel(nameComponent: string) {
+
   const modal = await this.modalController.create({
     component: this.stringEmpty,
     componentProps: {
-      /*   
+      /*
         'firstName': 'Douglas',
         'lastName': 'Adams',
-        'middleInitial': 'N' 
+        'middleInitial': 'N'
       */
     }
-    
   });
+
   modal.component = this.setComponent(nameComponent);
   return await modal.present();
   }
 
-  private setComponent(nameComponent:string){
-    switch(nameComponent){
-      //add allModal in this method 
-      case "BluetoothModal": return BluetoothModal;
+  private setComponent(nameComponent: string) {
+    switch (nameComponent) {
+      // add allModal in this method
+      case 'BluetoothModal': return BluetoothModal;
 
       default: return NotImplemented;
-    }  
+    }
   }
 
   public dismissModel() {
     // using the injected ModalController this page
     // can "dismiss" itself and optionally pass back data
     this.modalController.dismiss({
-      'dismissed': true
+      dismissed: true
     });
-  } 
+  }
 }

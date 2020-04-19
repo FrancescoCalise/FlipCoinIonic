@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
+import { RandomComponent } from '../dashboard/random/random.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
         CommonServiceComponent,
         BluetoothModal,
         NotImplemented,
+        RandomComponent,
         ModalServiceComponent
     ],
     imports: [
@@ -34,7 +36,8 @@ import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
     ],
     entryComponents: [
         BluetoothModal,
-        NotImplemented
+        NotImplemented,
+        RandomComponent
     ]
 })
 

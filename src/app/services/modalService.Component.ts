@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { BluetoothModal } from '../settings/bluetooth/bluetooth.page';
 import { NotImplemented } from '../tabs/notImplemented/notImplemented.page';
+import { RandomComponent } from '../dashboard/random/random.component';
 
 @Component({
     template: ''
@@ -14,7 +15,7 @@ export class ModalServiceComponent {
 
   public async openModel(nameComponent: string) {
 
-  const modal = await this.modalController.create({
+    const modal = await this.modalController.create({
     component: this.stringEmpty,
     componentProps: {
       /*
@@ -33,6 +34,7 @@ export class ModalServiceComponent {
     switch (nameComponent) {
       // add allModal in this method
       case 'BluetoothModal': return BluetoothModal;
+      case 'RandomComponent': return RandomComponent;
 
       default: return NotImplemented;
     }

@@ -6,7 +6,6 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
 <ion-content fullscreen>
   <div *ngIf="isBluetoothEnabled; else isBluetoothDisabled">
     <div *ngIf="showDevices; else isLoading">
@@ -19,20 +18,14 @@
         </ion-item>
         <ion-button (click)="bluetoothService.disconnectBluetooth()">Disconnect</ion-button> 
       </ion-list>
-
       <ion-label *ngIf="!hasFoundDevice">
         <h1>No devices found</h1>
       </ion-label>
-
     </div>
-    
     <ng-template #isLoading>  
       <h1>Loading...</h1>
     </ng-template>
   </div>
-  
-
- 
   <ng-template #isBluetoothDisabled >non è attivo</ng-template>
 </ion-content>
 <ion-button  (click)="ngOnInit()">Refresh

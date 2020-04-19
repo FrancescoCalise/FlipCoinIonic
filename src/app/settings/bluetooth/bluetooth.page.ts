@@ -11,7 +11,12 @@ import { IDevice } from 'src/interface/IDevice';
 })
 export class BluetoothModal implements OnInit {
   public devices: IDevice[] = [];
-
+  public showDevices: boolean = false;
+  public isLoading: boolean = false;
+  public isBluetoothEnabled: boolean = false;
+  public isBluetoothDisabled: boolean = true;
+  public hasFoundDevice: boolean = false;
+  
   // Data passed in by componentProps
   /* @Input() firstName: string;
   @Input() lastName: string;
@@ -25,14 +30,28 @@ export class BluetoothModal implements OnInit {
   }
 
   ngOnInit() {
+    console.log("ngOnInit");
     this.bluetoothService.isEnabled()
     .then(state => {
+      console.log(state);
       if (state) {
-        this.devices = this.bluetoothService.searchDevices();
+        this.isBluetoothEnabled = true;
+        this.isBluetoothDisabled =false;
+        this.isLoading = true;
+        this.bluetoothService.searchDevices()
+        .then((res: IDevice[])=>{
+          this.devices = res;
+          this.showDevices = true;
+          this.isLoading = false;
+          if(res.length > 0){
+            this.hasFoundDevice =true;
+          }
+        })
       }
     });
   }
 
   ngOnAfterInit() {
+    console.log(this.devices);
   }
 }

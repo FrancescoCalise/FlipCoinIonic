@@ -1,6 +1,6 @@
 export interface IDevice {
-    Name: string;
-    Address: string;
-    Id: string;
-    Class: number;
+    name: string;
+    address: string;
+    id: string;
+    class: number;
 }

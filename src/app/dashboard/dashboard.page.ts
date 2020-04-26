@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalServiceComponent } from '../services/modalService.Component';
 import { CommonServiceComponent } from '../services/commonService.Component';
-import { IFunction } from 'src/interface/IFunction';
+import { IFunction } from '../../interface/IFunction'
 
 @Component({
   selector: 'app-dashboard',

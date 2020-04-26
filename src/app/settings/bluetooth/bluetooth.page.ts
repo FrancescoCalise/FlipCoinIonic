@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavParams} from '@ionic/angular';
-import { BluetoothServiceComponent } from 'src/app/services/bluetoothService.Component';
-import { ModalServiceComponent } from 'src/app/services/modalService.Component';
-import { IDevice } from 'src/interface/IDevice';
+import { BluetoothServiceComponent } from '../../services/bluetoothService.Component';
+import { ModalServiceComponent } from '../../services/modalService.Component'
+import { IDevice } from '../../../interface/IDevice';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @Component({
   selector: 'app-bluetooth',
@@ -23,6 +24,7 @@ export class BluetoothModal implements OnInit {
   @Input() middleInitial: string; */
 
   constructor(
+    private splashScreen: SplashScreen,
     public modalService: ModalServiceComponent,
     private navParams: NavParams,
     public bluetoothService: BluetoothServiceComponent,
@@ -30,24 +32,29 @@ export class BluetoothModal implements OnInit {
   }
 
   ngOnInit() {
+    this.splashScreen.show();
     console.log("ngOnInit");
     this.bluetoothService.isEnabled()
     .then(state => {
-      console.log(state);
       if (state) {
         this.isBluetoothEnabled = true;
-        this.isBluetoothDisabled =false;
+        this.isBluetoothDisabled = false;
         this.isLoading = true;
         this.bluetoothService.searchDevices()
         .then((res: IDevice[])=>{
           this.devices = res;
           this.showDevices = true;
-          this.isLoading = false;
+          this.isLoading = false; 
+          this.splashScreen.hide()
           if(res.length > 0){
             this.hasFoundDevice =true;
           }
         })
       }
+      else{
+        this.splashScreen.hide()
+      }
+      
     });
   }
 

@@ -15,9 +15,10 @@
 
 <!--   <app-explore-container name="Tab 1 page"></app-explore-container> -->
 <ion-card *ngFor="let function of functions">
-  <ion-card-header (click)="modalService.openModel(function.Component)">
+  <ion-card-header class="ion-activatable ripple-parent"  (click)="modalService.openModel(function.Component)">
     <ion-card-title>{{function.Name}}</ion-card-title>
     <ion-card-subtitle>{{function.Content}}</ion-card-subtitle>
+    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card-header>
 </ion-card>
 

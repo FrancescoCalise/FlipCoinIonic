@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { IDevice } from 'src/interface/IDevice';
+import { IDevice } from '../../interface/IDevice';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+
 
 
 
@@ -9,7 +11,7 @@ import { IDevice } from 'src/interface/IDevice';
 })
 export class  BluetoothServiceComponent {
 
-  constructor(private bluetoothSerial: BluetoothSerial) { }
+  constructor(private bluetoothSerial: BluetoothSerial,private splashScreen: SplashScreen) { }
 
   public  async isEnabled(): Promise<boolean> {
     let value = false;
@@ -58,6 +60,7 @@ resolve(value)
 
  
   public connectToDevice(macAddress : string): boolean{
+    this.splashScreen.show();
     let response=false;
     this.bluetoothSerial.connect(macAddress)
     .subscribe((res) => {
@@ -67,6 +70,7 @@ resolve(value)
     },(err) => {
       console.log(err,"errore")
     }) 
+    this.splashScreen.hide();
     return response;  
   }
 

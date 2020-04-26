@@ -8,10 +8,33 @@
 </ion-header>
 
 <ion-content fullscreen>
+  <form (ngSubmit)="onSubmit(dicesSelected)">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>
+       Select your dices
+      </ion-label>
+    </ion-list-header>
+    
+      <ion-item>
+      <ion-label>Dices list</ion-label>
+      <ion-select multiple="true" cancelText="Nah" okText="Okay!" (ionChange)="onSelected($event.target.value)">
+        <ion-select-option  *ngFor="let dice of typeDices" value="{{dice.value}}" >{{dice.name}}</ion-select-option>
+        
+      </ion-select>
+    </ion-item>
   
+  </ion-list>
+  <div *ngIf="showInputQuantity">
+    <ion-item *ngFor="let quantity of dicesSelected"> 
+      <ion-label>Quantity Dice: </ion-label> 
+      <ion-input (ionChange)="onChange($event.target.value,quantity)" type="number" placeholder=".."></ion-input> 
+      <ion-label end> {{quantity.name}}</ion-label> 
+    </ion-item>
 
-
-  
+</div>
+<button ion-button type="submit" block>Send</button>
+</form>
 </ion-content>
 
 <ion-button>

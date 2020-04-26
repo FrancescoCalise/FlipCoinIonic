@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonServiceComponent } from '../services/commonService.Component';
-import { ISetting } from 'src/interface/ISetting';
+import { ISetting } from '../../interface/ISetting';
 import { ModalServiceComponent } from '../services/modalService.Component';
-import { IFunction } from 'src/interface/IFunction';
+import { IFunction } from '../../interface/IFunction';
 
 @Component({
   selector: 'app-settings',

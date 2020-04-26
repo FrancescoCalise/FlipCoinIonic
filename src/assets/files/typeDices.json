@@ -1,0 +1,10 @@
+[
+    {"value":2,"name":"D2"},
+    {"value":4,"name":"D4" },
+    {"value":6,"name":"D6" },
+    {"value":8,"name":"D8" },
+    {"value":10,"name":"D10" },
+    {"value":12,"name":"D12" },
+    {"value":20,"name":"D20" },
+    {"value":100 ,"name":"D100"}
+]

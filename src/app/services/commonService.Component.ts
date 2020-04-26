@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IFunction } from 'src/interface/IFunction';
+import { IFunction } from '../../interface/IFunction';
 
 @Component({
     template: ''
@@ -7,7 +7,7 @@ import { IFunction } from 'src/interface/IFunction';
 export class CommonServiceComponent {
   constructor() { }
 
-  public readJson(nameFile: string): Promise<IFunction[]>  {
+  public readJson(nameFile: string): Promise<any>  {
     const promise = fetch('./assets/files/' + nameFile + '.json')
     .then(res => {
         return res

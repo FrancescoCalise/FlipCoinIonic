@@ -13,11 +13,12 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card *ngFor="let setting of settings">
+  <ion-card  class="ion-activatable ripple-parent"  *ngFor="let setting of settings">
     <ion-card-header (click)="modalService.openModel(setting.Component)">
       <ion-card-title>{{setting.Name}}</ion-card-title>
       <ion-card-subtitle>{{setting.Content}}</ion-card-subtitle>
     </ion-card-header>
+    <ion-ripple-effect type="unbounded"></ion-ripple-effect>
   </ion-card>
 
 </ion-content>

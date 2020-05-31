@@ -1,0 +1,1 @@
+copiare le librerie in documenti/Arudino/Library

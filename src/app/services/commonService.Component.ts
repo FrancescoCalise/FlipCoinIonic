@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { IFunction } from '../../interface/IFunction';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     template: ''
 })
 export class CommonServiceComponent {
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   public readJson(nameFile: string): Promise<any>  {
     const promise = fetch('./assets/files/' + nameFile + '.json')
@@ -19,4 +20,16 @@ export class CommonServiceComponent {
       });
     return promise;
   }
+public showSuccess(message,titolo){
+  this.toastr.success(message,titolo)
+}
+public showError( message,titolo){
+  this.toastr.error(message,titolo)
+}
+public showInfo(message,titolo){
+  this.toastr.info(message,titolo)
+}
+public showWarning(message,titolo){
+  this.toastr.warning(message,titolo)
+}
 }

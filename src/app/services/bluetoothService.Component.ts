@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { IDevice } from '../../interface/IDevice';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { CommonServiceComponent } from './commonService.Component';
 
 
 
@@ -11,25 +12,27 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 })
 export class  BluetoothServiceComponent {
 
-  constructor(private bluetoothSerial: BluetoothSerial,private splashScreen: SplashScreen) { }
+  constructor(private bluetoothSerial: BluetoothSerial,private commonService:CommonServiceComponent,private splashScreen: SplashScreen) { }
+isEnabledBool=false;
+isConnectedBool=false;
 
   public  async isEnabled(): Promise<boolean> {
-    let value = false;
+   this.isEnabledBool=false;
     const promise = new Promise<boolean>(resolve => {
       setTimeout(()=>{
-resolve(value)
+      resolve(this.isEnabledBool)
       })
-    
     });
     await Promise.resolve(this.bluetoothSerial.isEnabled()
       .then(enabled => {
         if (this.convertResponseBluetooth(enabled)) {
-          value = true;
+        this.isEnabledBool=true;         
         }
       }) 
       .catch(err => {
         // TODO: gestire l'errore
         console.log(err, 'notenabled');
+        this.commonService.showError("Bluetooth spento","Bluetooth")
       })
     )
     return promise;
@@ -67,13 +70,38 @@ resolve(value)
     if(this.convertResponseBluetooth(res))
       response=true;
       console.log("isConnected",response)
+      this.commonService.showSuccess("Connessione abilitata","Connessione")
     },(err) => {
       console.log(err,"errore")
+      this.commonService.showError("Connessione non riuscita","Connessione")
+
     }) 
     this.splashScreen.hide();
     return response;  
   }
+public async isConnected():Promise<boolean>{
+ this.isConnectedBool=false;
+    const promise = new Promise<boolean>(resolve => {
+      setTimeout(()=>{
+resolve(this.isConnectedBool)
+      })
+    
+    });
+    await Promise.resolve(this.bluetoothSerial.isConnected()
+      .then(enabled => {
+        if (this.convertResponseBluetooth(enabled)) {
+          this.isConnectedBool = true;
+          this.commonService.showSuccess("Dispositivo Paired","Bluetooth")
 
+        }
+      }) 
+      .catch(err => {
+        // TODO: gestire l'errore
+        this.commonService.showError("Dispositivo non Paired","Bluetooth")
+      })
+    )
+    return promise;
+}
   public showBluetoothSettings(){
     this.bluetoothSerial.showBluetoothSettings()
     .then((settings)=>{
@@ -89,17 +117,29 @@ resolve(value)
     .then((res)=>{
      if(this.convertResponseBluetooth(res))
      response=true
+     this.commonService.showSuccess("Disconessione Riuscita","Disconnessione")
+
      console.log("Disconnect",response)
     })
     return response
   }
-public sendMessageToBluetooth(msg:string)
+
+public async sendMessageToBluetooth(msg:string)
 {
+  console.log(this.isEnabled())
+  console.log(this.isConnected()); 
+  if (this.isEnabledBool && this.isConnectedBool){
   this.bluetoothSerial.write(msg)
   .then((res)=>{
+    this.commonService.showSuccess("Messaggio inviato","Bluetooth")
     console.log(res)
    })
-  
+   .catch(err=>{
+    console.log(err,"errorsetting")
+    this.commonService.showError("Messaggio non inviato","Bluetooth")
+
+   })
+  }
 }
   private convertResponseBluetooth(response: string): boolean{
     if(response === 'OK'|| response ==='ok')

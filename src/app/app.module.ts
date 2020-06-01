@@ -10,7 +10,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { ServicesModule } from './services/services.module';
-
+ 
+import { ToastrModule ,ToastNoAnimation,
+  ToastNoAnimationModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +20,7 @@ import { ServicesModule } from './services/services.module';
   entryComponents: [
   ],
   imports: [
+    ToastNoAnimationModule.forRoot(),
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,

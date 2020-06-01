@@ -11,12 +11,12 @@ import { CommonServiceComponent } from '../../services/commonService.Component';
   styleUrls: ['./random.component.scss'],
 })
 export class RandomComponent implements OnInit {
-public message:string ="1,6;"
+public message:string =""
 nameFile = 'typeDices';
 public showInputQuantity :boolean =false;
 public dicesSelected:ITypeDice[] = [];
 public typeDices: ITypeDice[];
-
+public dadiCorretti:boolean=false;
   constructor(
     public modalService: ModalServiceComponent,
     public bluetoothService: BluetoothServiceComponent,
@@ -27,7 +27,7 @@ public typeDices: ITypeDice[];
     this.commonSerivce.readJson(this.nameFile).then(dices => {
       this.typeDices = dices;
     });
-   this.bluetoothService.sendMessageToBluetooth(this.message)
+   
   }
 
  async onSelected(value){
@@ -52,7 +52,10 @@ async onChange(value:string,dices){
 
 
 }
-
+cleanSerial(){
+  this.message=""
+  this.bluetoothService.sendMessageToBluetooth(this.message);
+}
 onSubmit(dices){
   let sommaTotale=0
  console.log(dices)
@@ -66,20 +69,27 @@ onSubmit(dices){
   }
   if(sommaTotale>999)
   {
-    console.log("troppo grande uagliu")
+    this.commonSerivce.showError("La somma dei dadi è troppo grande","Dadi")
   }
   else{
+if (dices.length==0){
+  this.commonSerivce.showError("Le quantità devono essere riempite", "Dadi")
+
+}else{
     for(let x=0;x<dices.length;x++){
- 
-     this.message =dices[x].value+","+dices[x].quantity+";"
-   
-       console.log(sommaTotale)
+      if(dices[x].quantity==undefined ){
+        this.commonSerivce.showError("Le quantità del "+dices[x].name+" deve essere riempita", "Dadi")
+      }else{
+        this.dadiCorretti=true;
+        this.message =dices[x].quantity+","+dices[x].value+";"+this.message
+
+      }
+ }
      }
-  
+     if(this.dadiCorretti){
+     this.bluetoothService.sendMessageToBluetooth(this.message)
+  this.message=""
+     }
   }
-
-  }
-  //che se la moltiplicazione tra quantita e valore del dado  sommati danno + di 999 deve cambiare
-
-
+}
 }

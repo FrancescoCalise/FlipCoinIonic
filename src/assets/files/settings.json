@@ -1,4 +1,4 @@
 [
-    {"Name":"Bluetooth", "Component":"BluetoothModal","Content":"descrizione per action bluetooth"},
-    {"Name":"AltraFunzione", "Component":"path","Content":"descrizione che non farà niente"}
+    {"Name":"Bluetooth", "Component":"BluetoothModal","Content":"descrizione per action bluetooth"}
+    
 ]

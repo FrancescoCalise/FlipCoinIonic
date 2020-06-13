@@ -88,6 +88,7 @@ if (dices.length==0){
      }
      if(this.dadiCorretti){
      this.bluetoothService.sendMessageToBluetooth(this.message)
+     console.log(this.message)
   this.message=""
      }
   }

@@ -126,11 +126,11 @@ resolve(this.isConnectedBool)
 
 public async sendMessageToBluetooth(msg:string)
 {
-  console.log(this.isEnabled())
-  console.log(this.isConnected()); 
-  if (this.isEnabledBool && this.isConnectedBool){
+  
+ /*  if (this.isEnabledBool && this.isConnectedBool){ */
   this.bluetoothSerial.write(msg)
   .then((res)=>{
+    console.log("Lo inviamo?")
     this.commonService.showSuccess("Messaggio inviato","Bluetooth")
     console.log(res)
    })
@@ -139,7 +139,7 @@ public async sendMessageToBluetooth(msg:string)
     this.commonService.showError("Messaggio non inviato","Bluetooth")
 
    })
-  }
+ /*  } */
 }
   private convertResponseBluetooth(response: string): boolean{
     if(response === 'OK'|| response ==='ok')

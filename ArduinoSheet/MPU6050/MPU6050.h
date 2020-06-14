@@ -17,4 +17,8 @@
 	void canGoToSleep();
 	void GetRandomNumber();
 	void setupAcceleromter();
+	boolean ReadValueForLowValue();
+	void writeStringToEEPROM(int offset, String input);
+	String readStringFromEEPROM(int offset);
+	void eePromClear();
 #endif

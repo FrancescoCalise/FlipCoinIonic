@@ -6,22 +6,24 @@
 #include <Wire.h>
 #include <avr/sleep.h>
 #include <avr/power.h>
+#include <EEPROM.h>
 
 int16_t AcX,AcY,AcZ,InitAcX;
 const int MPU_ADDR=0x68;
-int valueRoll = 100;
+int valueRoll = 0;
 bool isStarted = false;
 unsigned long timerSleep;
 const int maxTimerSleep = 30000;
-const int tolleranceAccelerometer = 5000;
-
+const int tolleranceAccelerometer = 1500;
+bool valueIsChanged=false;
 unsigned long timerAcc;
 unsigned long timerNumber;
 unsigned long timerNumberBlank;
 const int maxTimerAcc = 500;
 
-String input ="1,6;";
+String input="";
 void StartSetup(){
+ input =readStringFromEEPROM(10); 
   Serial.begin(9600);
   pinMode(2, INPUT_PULLUP);
   randomSeed(analogRead(0));
@@ -41,10 +43,17 @@ void setupAcceleromter(){
   Wire.endTransmission(true);
 }
 
-void loopCustom(){
+void loopCustom(){  
   readFormBluetooth();
-  if(input != ""){
+ 
+  if (valueIsChanged){
+    eePromClear();
+    writeStringToEEPROM(10,input);
+    delay(100);
+    valueIsChanged=false;
 
+  } 
+  if(input != ""){
     if(valueRoll != 0){
       setNumber(valueRoll);
     }
@@ -57,7 +66,7 @@ void loopCustom(){
         do {
           setNumber(888);
           delay(100);
-        } while ( ( millis() - timerNumberBlank) < 3000);
+        } while (!ReadValueForLowValue());
 
         GetRandomNumber();
         updateTimer();
@@ -73,60 +82,70 @@ void loopCustom(){
         isStarted= false;
       }else{
         isStarted= false;
+
         canGoToSleep();
       }
     }
   }else{
-    //canGoToSleep();
-    //Serial.println("Dadi non assegnati.");
+
     setNumber(888);
-    delay(100);
   }
 }
 
 void readFormBluetooth(){
+ 
   char character;
   if(Serial.available()>0)
   {
     character = Serial.read();
     input = input + character;  
-    Serial.println(input);
+     valueIsChanged=true;
     updateTimer();
+   
   }
 }
 
 boolean ReadValueFromAccelerometer(){
   if ( ( millis() - timerAcc) > maxTimerAcc){
     Wire.beginTransmission(MPU_ADDR);
-    Wire.write(0x3B); // starting with register 0x3B (ACCEL_XOUT_H) [MPU-6000 and MPU-6050 Register Map and Descriptions Revision 4.2, p.40]
-    Wire.endTransmission(false); // the parameter indicates that the Arduino will send a restart. As a result, the connection is kept active.
-    Wire.requestFrom(MPU_ADDR, 3*2, true); // request a total of 7*2=14 registers
+    Wire.write(0x3B);
+    Wire.endTransmission(false); 
+    Wire.requestFrom(MPU_ADDR, 3*2, true);
 
     if(InitAcX == 0){
-      InitAcX = Wire.read()<<8 | Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)
-      AcX = InitAcX;
+      InitAcX = Wire.read()<<8 | Wire.read();  
     }else{
-      AcX = Wire.read()<<8 | Wire.read();  // 0x3B (ACCEL_XOUT_H) & 0x3C (ACCEL_XOUT_L)
+      AcX = Wire.read()<<8 | Wire.read();  
     }
 
-    //AcY = Wire.read()<<8 | Wire.read();  // 0x3D (ACCEL_YOUT_H) & 0x3E (ACCEL_YOUT_L)
-    //AcZ = Wire.read()<<8 | Wire.read();  // 0x3F (ACCEL_ZOUT_H) & 0x40 (ACCEL_ZOUT_L)
-    //Serial.print(" | aY = "); Serial.print(AcY);
-    //Serial.print(" | aZ = "); Serial.println(AcZ); 
-
+  
     timerAcc = millis();
     int acc = InitAcX - AcX;
-    //Serial.print("initACX = "); Serial.println(InitAcX);
-    //Serial.print("aX = "); Serial.println(AcX);
-    
     if(abs(acc) >= tolleranceAccelerometer){
-    //  Serial.print("Acc "); Serial.println(acc);
+   
       return true;
     }
   }
    return false;
 }
+boolean ReadValueForLowValue(){
+  if ( ( millis() - timerAcc) > maxTimerAcc){
+    Wire.beginTransmission(MPU_ADDR);
+    Wire.write(0x3B); 
+    Wire.endTransmission(false);
+    Wire.requestFrom(MPU_ADDR, 3*2, true); 
 
+      AcX = Wire.read()<<8 | Wire.read();  
+    
+
+    timerAcc = millis();
+     int acc = InitAcX - AcX;
+    if(abs(acc) <= 100){
+      return true;
+    }
+  }
+   return false;
+}
 void updateTimer(){
   timerSleep = millis();
   timerAcc = millis();
@@ -179,4 +198,39 @@ void canGoToSleep() {
 
 void Pin2Interrupt() {
   detachInterrupt(digitalPinToInterrupt(2));  
+}
+
+
+String readStringFromEEPROM(int addrOffset)
+{
+  int newStrLen = EEPROM.read(addrOffset);
+  if (newStrLen != 0){
+    char data[newStrLen ];
+    for (int i = 0; i < newStrLen; i++)
+    {
+      data[i] = EEPROM.read(addrOffset + i);
+    }
+    Serial.print("Data: ");
+    Serial.println (String(data));
+    return String(data);
+  }
+  return "";
+}
+
+
+
+void writeStringToEEPROM(int addrOffset,String strToWrite)
+{
+  
+  byte len = strToWrite.length();
+ Serial.print(EEPROM.length());
+  for (int i = 0; i < len; i++)
+  {
+    EEPROM.write(addrOffset  + i, strToWrite[i]);
+  }
+}
+void eePromClear(){
+  for (int i = 0 ; i < EEPROM.length() ; i++) {
+    EEPROM.write(i, 0);
+  }
 }
